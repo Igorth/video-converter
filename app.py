@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 import os
 import uuid
+from moviepy.editor import VideoFileClip
 
 app = Flask(__name__)
 
@@ -13,6 +14,11 @@ if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 
+def convert_video(input_path, output_path):
+    clip = VideoFileClip(input_path)
+    clip.write_videofile(output_path, codec='libx264', audio_codec='aac')
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -21,7 +27,14 @@ def index():
             filename = str(uuid.uuid4()) + os.path.splitext(file.filename)[1]
             input_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(input_path)
-            return 'Upload successful'
+
+            output_filename = str(uuid.uuid4()) + '.mp4'
+            output_path = os.path.join(app.config['UPLOAD_FOLDER'], output_filename)
+
+            # Convert the uploaded video to MP4 using the moviepy library
+            convert_video(input_path, output_path)
+
+            return 'Upload and conversion successful'
     return render_template('index.html')
 
 
