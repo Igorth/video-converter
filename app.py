@@ -12,9 +12,12 @@ if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return 'Hello World'
+    if request.method == 'POST':
+        # File manager will come here
+        pass
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
