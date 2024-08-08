@@ -3,7 +3,7 @@ import os
 import uuid
 from moviepy.editor import VideoFileClip
 import boto3
-from config import S3_BUCKET_NAME, S3_REGION_NAME
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 
@@ -15,8 +15,13 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
+# Load environment variables from.env file
+load_dotenv()
+
 # AWS S3 client setup
 s3 = boto3.client('s3')
+S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
+S3_REGION_NAME = os.getenv('S3_REGION_NAME')
 
 
 def convert_video(input_path, output_path):
