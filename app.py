@@ -2,6 +2,7 @@ from flask import Flask, request, render_template
 import os
 import uuid
 from moviepy.editor import VideoFileClip
+import boto3
 
 app = Flask(__name__)
 
@@ -13,10 +14,18 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
+# AWS S3 client setup
+s3 = boto3.client('s3')
+S3_BUCKET = 'videoconverters3'
+
 
 def convert_video(input_path, output_path):
     clip = VideoFileClip(input_path)
     clip.write_videofile(output_path, codec='libx264', audio_codec='aac')
+
+
+def upload_to_s3(file_path, bucket_name, object_name):
+    s3.upload_file(file_path, bucket_name, object_name)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -34,7 +43,12 @@ def index():
             # Convert the uploaded video to MP4 using the moviepy library
             convert_video(input_path, output_path)
 
-            return 'Upload and conversion successful'
+            # Upload the converted video to AWS S3
+            upload_to_s3(output_path, S3_BUCKET, output_filename)
+
+            video_url = f'https://{S3_BUCKET}.s3.amazonaws.com/{output_filename}'
+
+            return render_template('index.html', video_url=video_url)
     return render_template('index.html')
 
 
