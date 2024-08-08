@@ -6,10 +6,17 @@
   <title>Video Converter</title>
 </head>
 <body>
-  <h1>Video Converter</h1>
+  <h1>Upload and Converter Video</h1>
   <form method="POST" enctype="multipart/form-data">
     <input type="file" name="file" accept="video/*" required>
-    <button type="submit">Upload</button>
+    <button type="submit">Upload and Convert</button>
   </form>
+  {% if video_url %}
+  <h2>Converted Video</h2>
+  <video width="320" height="240" controls>
+    <source src="{{ video_url }}" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  {% endif %}
 </body>
 </html>

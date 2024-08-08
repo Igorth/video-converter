@@ -13,3 +13,6 @@ venv.bak/
 static/
 
 test_video.wmv
+
+# Local configuration files
+config.py

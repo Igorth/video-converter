@@ -3,6 +3,7 @@ import os
 import uuid
 from moviepy.editor import VideoFileClip
 import boto3
+from config import S3_BUCKET_NAME, S3_REGION_NAME
 
 app = Flask(__name__)
 
@@ -16,7 +17,6 @@ if not os.path.exists(UPLOAD_FOLDER):
 
 # AWS S3 client setup
 s3 = boto3.client('s3')
-S3_BUCKET = 'videoconverters3'
 
 
 def convert_video(input_path, output_path):
@@ -44,9 +44,9 @@ def index():
             convert_video(input_path, output_path)
 
             # Upload the converted video to AWS S3
-            upload_to_s3(output_path, S3_BUCKET, output_filename)
+            upload_to_s3(output_path, S3_BUCKET_NAME, output_filename)
 
-            video_url = f'https://{S3_BUCKET}.s3.amazonaws.com/{output_filename}'
+            video_url = f"https://{S3_BUCKET_NAME}.s3.{S3_REGION_NAME}.amazonaws.com/{output_filename}"
 
             return render_template('index.html', video_url=video_url)
     return render_template('index.html')
