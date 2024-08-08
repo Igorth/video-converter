@@ -74,9 +74,3 @@ Before you begin, make sure you have the following tools installed:
    ```
    http://127.0.0.1:5000
    ```
-
-## Deployment
-
-### Deployment on Amazon EC2
-
-Coming soon ...
