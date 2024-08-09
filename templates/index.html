@@ -1,22 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Video Converter</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Converter</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Video.js CSS -->
+    <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
 </head>
 <body>
-  <h1>Upload and Converter Video</h1>
-  <form method="POST" enctype="multipart/form-data">
-    <input type="file" name="file" accept="video/*" required>
-    <button type="submit">Upload and Convert</button>
-  </form>
-  {% if video_url %}
-  <h2>Converted Video</h2>
-  <video width="320" height="240" controls>
-    <source src="{{ video_url }}" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-  {% endif %}
+    <!-- Header -->
+    <header class="bg-dark text-white py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1 class="m-0">Video Converter</h1>
+            <button id="theme-toggle" class="btn btn-secondary">Toggle Theme</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <!-- Upload Section -->
+        <section class="bg-light p-5 rounded shadow-sm">
+            <h2 class="mb-4">Upload and Convert Video</h2>
+            <form id="upload-form" class="text-center" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <input id="video-upload" class="form-control" type="file" name="file" accept="video/*" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Convert Video</button>
+            </form>
+            <div id="feedback" class="mt-3"></div>
+        </section>
+
+        <!-- Video Player Section -->
+        {% if video_url %}
+        <section class="mt-5">
+            <h3 class="mb-4">Converted Video</h3>
+            <video src="{{ video_url }}" id="video-player" class="video-js vjs-default-skin" controls preload="auto" width="640" height="264">
+                Your browser does not support the video tag.
+            </video>
+        {% endif %}
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2024 Video Converter. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
 </body>
 </html>

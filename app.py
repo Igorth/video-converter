@@ -35,6 +35,7 @@ def upload_to_s3(file_path, bucket_name, object_name):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    video_url = None
     if request.method == 'POST':
         file = request.files['file']
         if file:
