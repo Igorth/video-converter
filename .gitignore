@@ -10,6 +10,6 @@ venv.bak/
 # Editor directories and files
 .idea/
 
-static/
+static/videos/
 
 test_video.wmv
