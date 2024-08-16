@@ -1,6 +1,8 @@
 
 # Video Conversion to Web Format Project
 
+![Video Converter Demo](static/video_converter.gif)
+
 ## Description
 
 This project is a web application that allows the conversion of video files from a specific format (incompatible with web standards) to a format compatible with modern browsers. The application enables users to upload a video, perform the conversion, and watch the converted video directly in the browser. The application uses **Python** and **Flask** for the backend, **Amazon S3** for file storage, and **MoviePy** for video conversion.
