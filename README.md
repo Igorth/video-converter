@@ -1,6 +1,11 @@
 
 # Video Conversion to Web Format Project
 
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)
+![Flask](https://img.shields.io/badge/Flask-2.0+-red.svg)
+![MoviePy](https://img.shields.io/badge/MoviePy-1.0+-green.svg)
+![Amazon S3](https://img.shields.io/badge/Amazon%20S3-Storage-orange.svg)
+
 ![Video Converter Demo](static/video_converter.gif)
 
 ## Description
@@ -20,7 +25,6 @@ This project is a web application that allows the conversion of video files from
 - **Flask**: Web framework used to create the application.
 - **MoviePy**: Library for video conversion.
 - **Amazon S3**: Cloud file storage.
-- **Amazon EC2**: Hosting platform for application deployment.
 - **Python-dotenv**: To securely manage environment variables.
 
 ## Prerequisites
